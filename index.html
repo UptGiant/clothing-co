@@ -44,6 +44,7 @@
 
         .product-list {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
         }
 
@@ -61,6 +62,11 @@
 
         .active {
             display: block;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 8px;
         }
     </style>
 </head>
@@ -82,11 +88,24 @@
         </section>
         <section id="product">
             <h2>Our Featured Products</h2>
-            <div class="product-list">
-                <div class="product">
+            <input type="text" id="searchBox" onkeyup="filterProducts()" placeholder="Search products...">
+            <div class="product-list" id="productList">
+                <div class="product" data-name="stylish shirt">
                     <img src="shirt.jpg" alt="Stylish Shirt">
                     <h3>Stylish Shirt</h3>
                     <p>$19.99</p>
+                    <button>Buy Now</button>
+                </div>
+                <div class="product" data-name="casual pants">
+                    <img src="pants.jpg" alt="Casual Pants">
+                    <h3>Casual Pants</h3>
+                    <p>$24.99</p>
+                    <button>Buy Now</button>
+                </div>
+                <div class="product" data-name="summer dress">
+                    <img src="dress.jpg" alt="Summer Dress">
+                    <h3>Summer Dress</h3>
+                    <p>$29.99</p>
                     <button>Buy Now</button>
                 </div>
             </div>
@@ -109,6 +128,19 @@
             activeSection.style.display = 'block';
         }
 
+        function filterProducts() {
+            const searchText = document.getElementById('searchBox').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const name = product.getAttribute('data-name').toLowerCase();
+                if (name.includes(searchText)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
@@ -120,3 +152,4 @@
     </script>
 </body>
 </html>
+
